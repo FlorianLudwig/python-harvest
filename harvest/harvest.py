@@ -40,7 +40,7 @@ class Harvest(object):
             self.__password = password
             if put_auth_in_header:
                 encoded_auth = '{self.email}:{self.password}'.format(self=self).encode('utf-8')
-                self.__headers['Authorization'] = 'Basic {0}'.format(enc64(encoded_auth).decode())
+                self.__headers['Authorization'] = 'Basic {0}'.format(enc64(encoded_auth).decode('utf-8'))
         elif client_id and token:
             self.__auth         = 'OAuth2'
             self.__client_id    = client_id
