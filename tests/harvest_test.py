@@ -1,10 +1,10 @@
-import os, sys
+import sys
 import unittest
-from time import time
 
 sys.path.insert(0, sys.path[0]+"/..")
 
 import harvest
+
 
 class TestHarvest(unittest.TestCase):
     def setUp(self):

@@ -1,8 +1,13 @@
+from __future__ import unicode_literals
+
+from future.standard_library import install_aliases
+install_aliases()
+
 import json
 import requests
 from requests_oauthlib import OAuth2Session
-from urlparse import urlparse
-from base64   import b64encode as enc64
+from urllib.parse import urlparse
+from base64 import b64encode as enc64
 
 HARVEST_STATUS_URL = 'http://www.harveststatus.com/api/v2/status.json'
 
@@ -34,7 +39,8 @@ class Harvest(object):
             self.__email    = email.strip()
             self.__password = password
             if put_auth_in_header:
-                self.__headers['Authorization'] = 'Basic {0}'.format(enc64('{self.email}:{self.password}'.format(self=self)))
+                encoded_auth = '{self.email}:{self.password}'.format(self=self).encode('utf-8')
+                self.__headers['Authorization'] = 'Basic {0}'.format(enc64(encoded_auth).decode())
         elif client_id and token:
             self.__auth         = 'OAuth2'
             self.__client_id    = client_id
@@ -382,7 +388,7 @@ class Harvest(object):
                 except:
                     return resp
             return resp
-        except Exception, e:
+        except Exception as e:
             raise HarvestError(e)
 
 
