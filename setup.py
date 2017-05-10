@@ -16,7 +16,9 @@ def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 metadata = {}
-execfile("harvest/metadata.py", metadata)
+with open("harvest/metadata.py") as f:
+    code = compile(f.read(), "harvest/metadata.py", 'exec')
+    exec(code, metadata)
 
 # http://pypi.python.org/pypi?:action=list_classifiers
 classifiers = [
@@ -26,6 +28,9 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: POSIX :: Linux",
     "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.3",
+    "Programming Language :: Python :: 3.4",
+    "Programming Language :: Python :: 3.5",
     "Topic :: Software Development :: Libraries",
     "Topic :: Utilities",
     "License :: OSI Approved :: Apache Software License",
